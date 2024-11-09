@@ -1,0 +1,38 @@
+# docker-compose.yml
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: venmito_db
+      POSTGRES_DB: venmito_db
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql  # Initialize schema on startup
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: venmito_db
+      POSTGRES_DB: venmito_db
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+
+    command: ["tail", "-f", "/dev/null"] 
