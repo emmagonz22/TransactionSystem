@@ -5,7 +5,7 @@ from ETL import run_etl
 from ETL.database import connect, disconnect
 
 # run main routine ot extract and load the data in the database
-if __name__ == "__main__":
+def start():
     connect()
     run_etl()
     disconnect()
