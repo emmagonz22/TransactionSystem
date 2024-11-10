@@ -26,7 +26,10 @@ def get_people(pid):
         "telephone": people.telephone,
         "email": people.email,
         "city": people.city,
-        "country": people.country
+        "country": people.country,
+        "android": people.android,
+        "ios": people.ios,
+        "desktop": people.desktop,
     })
 
 @people_bp.route("/<int:pid>", methods=["PUT"])

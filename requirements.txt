@@ -6,3 +6,4 @@ streamlit
 Flask
 SQLAlchemy
 flask_sqlalchemy
+matplotlib

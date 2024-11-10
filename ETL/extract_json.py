@@ -11,14 +11,22 @@ def load_people_json():
     # Location is split in City and Country, devices will be in a new table
     for id, first_name, last_name, telephone, email, devices, location in people_json.values:
         try:
-            cur.execute("INSERT into people (pid, first_name, last_name, telephone, email, city, country) VALUES(%s, %s, %s, %s, %s, %s, %s) ON CONFLICT (pid) DO NOTHING;", 
-                        (id, first_name, last_name, telephone, email, location["City"], location["Country"]))
             
-            # Insert the devices table in the db, this will have two foreign key 
+            android, ios, desktop = False, False, False
+            
             for device in devices:
-                cur.execute("INSERT into device (pid, device_type) VALUES(%s, %s);", 
-                        (id, device))
+                if device == "Android":
+                    android = True
+                if device == "Iphone":
+                    ios = True
+                if device == "Desktop":
+                    desktop = True
+                
+            cur.execute("""INSERT into people (pid, first_name, last_name, telephone, email, city, country, android, ios, desktop) 
+                        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT (pid) DO NOTHING;""", 
+                        (id, first_name, last_name, telephone, email, location["City"], location["Country"], android, ios, desktop))
             
+         
             conn.commit()
             print("People data was inserted")
         except Exception as e:

@@ -24,16 +24,11 @@ CREATE TABLE people (
     email VARCHAR(255) NOT NULL,  
     city VARCHAR(100),                  
     country VARCHAR(100),
-    ANDROID BOOLEAN,
-    IOS BOOLEAN,
-    DESKTOP BOOLEAN              
+    android BOOLEAN DEFAULT FALSE,
+    ios BOOLEAN DEFAULT FALSE,
+    desktop BOOLEAN DEFAULT FALSE                
 );
 
-CREATE TABLE device (
-    did SERIAL PRIMARY KEY,        
-    pid INTEGER NOT NULL REFERENCES people(pid) ON DELETE CASCADE,
-    device_type VARCHAR(50) NOT NULL 
-);
 
 CREATE TABLE transaction (
     eid SERIAL PRIMARY KEY,             -- This id is use to identify each entry in the transaction, since there are multiple items

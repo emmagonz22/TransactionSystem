@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.transaction import Transaction
+from sqlalchemy import func, desc
 from db import db
 
 transaction_bp = Blueprint("transaction", __name__, url_prefix="/transaction")
@@ -123,3 +124,61 @@ def delete_entry(eid):
     session.delete(entry)
     session.commit()
     return jsonify({"message": "Entry deleted"})
+
+# ---Stadistics---
+@transaction_bp.route("/top-sold-items", methods=["GET"])
+def get_top_sold_items():
+    session = db.session
+
+    # Get top 5 solf items (using quantity)
+    top_items = (
+        session.query(Transaction.item_name, func.sum(Transaction.quantity).label("total_quantity"))
+        .group_by(Transaction.item_name)
+        .order_by(desc("total_quantity"))
+        .limit(5)
+        .all()
+    )
+
+    # Format the data as a list of dictionaries
+    top_items_data = [{"item_name": item[0], "total_quantity": item[1]} for item in top_items]
+
+    return jsonify(top_items_data), 200
+
+
+@transaction_bp.route("/top-five-stores-by-amount", methods=["GET"])
+def get_top_five_stores_by_amout():
+    session = db.session
+    # Query to get the top 5 stores with the most sales
+    top_stores = ( 
+        session.query(Transaction.store, func.count(Transaction.eid).label("total_sales"))
+        .group_by(Transaction.store)
+        .order_by(func.count(Transaction.eid).desc())
+        .limit(5)
+        .all()
+    )
+    # store in dictionary to return as json
+    results = [
+        {"store": store[0], "total_sales": store[1]} for store in top_stores
+    ]
+    return jsonify(results), 200
+
+@transaction_bp.route("/top-five-stores-by-profit", methods=["GET"])
+def get_top_five_stores_by_profit():
+    session = db.session
+    # query and calculate totl profit 
+    top_stores = (
+        session.query(
+            Transaction.store,
+            func.sum(Transaction.price).label("total_profit")
+        )
+        .group_by(Transaction.store)
+        .order_by(desc("total_profit"))
+        .limit(5)
+        .all()
+    )
+    
+    # store in dictionary to return as json
+    results = [
+        {"store": store.store, "total_profit": store.total_profit} for store in top_stores
+    ]
+    return jsonify(results), 200
