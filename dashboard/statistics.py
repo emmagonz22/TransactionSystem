@@ -9,10 +9,10 @@ PEOPLE_API_URL = "http://127.0.0.1:5000/people"
 PROMOTION_API_URL = "http://127.0.0.1:5000/promotion"
 TRANSFER_API_URL = "http://127.0.0.1:5000/transfers"
 
-st.title("Stadistics")
+st.title("Statistics")
 
 # Operation selector
-operation = st.sidebar.selectbox("Choose an stadistic to display", ["Top 5 sold items",
+operation = st.sidebar.selectbox("Choose an statistic to display", ["Top 5 sold items",
                                                                     "Top 5 stores with most sales (quantity)",
                                                                     "Top 5 stores with most profits",
                                                                     "Transfer amount ($) over time",
