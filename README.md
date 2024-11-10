@@ -1,3 +1,7 @@
+## Emmanuel Gonzalez Morales
+## emmagonz22 - Github
+## emmanuel.gonzalez22@upr.edu
+
 # Requirements
 
 - Docker desktop
