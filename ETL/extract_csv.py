@@ -20,12 +20,14 @@ def load_promotions():
     # proccess each promotions
     for id, client_email, telephone, promotion, responded in promotions_data.values:
         try:
-            cur.execute("INSERT into promotion (pid, client_email, telephone, promotion, responded) VALUES(%s, %s, %s, %s, %s);", (id, client_email, telephone, promotion, responded))
+            cur.execute("INSERT into promotion (prid, client_email, telephone, promotion, responded) VALUES(%s, %s, %s, %s, %s);", (id, client_email, telephone, promotion, responded))
             conn.commit()
             print("Promotions data was inserted")
         except Exception as e:
             print("An error occurred while inserting into promotion: ", e)
-
+    
+    #cur.execute("SELECT setval('promotion_prid_seq', COALESCE(MAX(prid), 1) + 1, false) FROM promotion;")
+    #conn.commit()
 
 
 def load_transfer_csv():
@@ -41,3 +43,6 @@ def load_transfer_csv():
             print("Transfer data was inserted")
         except Exception as e:
             print("An error occurred while inserting into transfer table: ", e)
+            
+    #cur.execute("SELECT setval('transfer_trid_seq', COALESCE(MAX(trid), 1) + 1, false) FROM transfer;")
+    #conn.commit()

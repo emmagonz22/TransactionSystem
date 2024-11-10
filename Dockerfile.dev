@@ -1,8 +1,10 @@
+# syntax=docker/dockerfile:1
+
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
 # Set working directory
-WORKDIR /usr/src/app
+WORKDIR /api
 
 # Copy the requirements file and install dependencies
 COPY requirements.txt ./
@@ -10,3 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code into the container
 COPY . .
+
+# flask env variable
+ENV FLASK_APP=api/app.py
+ENV FLASK_ENV=development
+
+CMD ["flask", "run", "--host=0.0.0.0"]
