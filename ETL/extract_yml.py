@@ -28,7 +28,7 @@ def load_people_yaml():
                 devices.append("Iphone")
             
             cur.execute(
-                "INSERT INTO people (pid, first_name, last_name, telephone, email, city, country) VALUES (%s, %s, %s, %s, %s, %s, %s) ON CONFLICT (pid) DO NOTHING;",
+                "INSERT INTO people (pid, first_name, last_name, telephone, email, city, country) VALUES (%s, %s, %s, %s, %s, %s, %s);",
                 (pid, first_name, last_name, telephone, email, city, country)
             )
 
@@ -44,4 +44,4 @@ def load_people_yaml():
             print("People data was inserted")
         except Exception as e:
             print("An error occurred while inserting into the database: ", e)
-    
+            

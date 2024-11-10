@@ -23,3 +23,6 @@ def load_people_json():
             print("People data was inserted")
         except Exception as e:
             print("An error occurred while inserting into people: ", e)
+    cur.execute("SELECT setval('people_pid_seq', COALESCE(MAX(pid), 1) + 1, false) FROM people;")
+    conn.commit()
+    conn.close()
