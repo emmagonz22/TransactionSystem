@@ -42,7 +42,7 @@ To manipulate the data in the /data folder I decided to use the data integration
 - transaction
 - transfer
 
-The schema.sql file have the structure of the database's tables, at the beginning I decided to have a device table to manege the devices but I decided to simplified and have the devices as booleans in the people table. As for the stadistics they are located in the traction and transfer routes. To display the data I use streamlit to create a dashboard where the user can manage all the crud operations and display the desired stadistics. For the transaction model I decided that each item will be an entry, I could have created a table only for the items but I decided to keep it simple.
+The schema.sql file have the structure of the database's tables, at the beginning I decided to have a device table to manege the devices but I decided to simplified and have the devices as booleans in the people table. As for the statistics they are located in the traction and transfer routes. To display the data I use streamlit to create a dashboard where the user can manage all the crud operations and display the desired statistics. For the transaction model I decided that each item will be an entry, I could have created a table only for the items but I decided to keep it simple.
 ![alt text](image.png)
 
 ![alt text](image-1.png)

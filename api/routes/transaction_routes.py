@@ -125,7 +125,7 @@ def delete_entry(eid):
     session.commit()
     return jsonify({"message": "Entry deleted"})
 
-# ---Stadistics---
+# ---Statistics---
 @transaction_bp.route("/top-sold-items", methods=["GET"])
 def get_top_sold_items():
     session = db.session
